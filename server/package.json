@@ -4,9 +4,21 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js"
+    "start": "cd .. && cd client && yarn client",
+    "dev": "concurrently -n 'server,client' -c 'blue,green' \"nodemon server.js\" \" yarn start\"  ",
+    "server": "nodemon server.js"
   },
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "assert": "^2.0.0",
+    "concurrently": "^6.2.2",
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "moment": "^2.29.1",
+    "mongodb": "^4.1.2",
+    "morgan": "^1.10.0",
+    "nodemon": "^2.0.13",
+    "uuid": "^8.3.2"
+  }
 }
