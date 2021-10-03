@@ -80,7 +80,7 @@ const AvatarOptionModal = ({ userAvatar, setUserAvatar }) => {
 const ModalImage = styled.img`
   border-radius: 5px;
   margin: 2px 2px;
-  width: 65px;
+  width: 45px;
   transition: 0.2 ease-in-out;
 `;
 const HiddenButton = styled(NotStyledButton)`
@@ -95,28 +95,28 @@ const ChoiceButton = styled(NotStyledButton)`
   margin: 2px 2px;
   transition: 0.5s ease-in-out;
 `;
-const Button = styled(MainStyledButton)`
-  bottom: 10px;
-  right: 20px;
-`;
+
 const CloseButton = styled(MainStyledButton)`
+  position: absolute;
   bottom: 10px;
   left: 10px;
 `;
 
 const Modal = styled.div`
   border-radius: 5px;
-  padding: 20px;
+  padding: 10px;
   padding-bottom: 60px;
+  padding-top: 22px;
   display: flex;
   flex-wrap: wrap;
   position: absolute;
+  background: white;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
 `;
 const AvatarWrapper = styled.div`
-  width: 350px;
+  min-width: 200px;
   height: 300px;
   overflow-y: scroll;
 `;

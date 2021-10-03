@@ -91,7 +91,30 @@ const Signup = () => {
         setUserAvatar={setUserAvatar}
       />
       <Wrapper>
-        SignIn
+        <TopWrapper>
+          {userAvatar ? (
+            <>
+              <AvatarChoiceDisplay src={userAvatar} alt="avatar pick" />
+              <RemoveAvatarPick onClick={handleRemoveAvatarChoice}>
+                x
+              </RemoveAvatarPick>
+            </>
+          ) : (
+            <></>
+          )}
+          Create new <div>Account</div>
+          <LoginWrapper>
+            Already Registered?{" "}
+            <LoginButton
+              onClick={() => {
+                history.push("/login");
+              }}
+            >
+              Login
+            </LoginButton>
+          </LoginWrapper>
+        </TopWrapper>
+
         <Form id="userCreation">
           {formInfoNeeded.map((info) => {
             return (
@@ -104,47 +127,66 @@ const Signup = () => {
             );
           })}
 
-          {userAvatar ? (
-            <AvatarChoiceWrapper>
-              <AvatarChoiceDisplay src={userAvatar} alt="avatar pick" />
-              <RemoveAvatarPick onClick={handleRemoveAvatarChoice}>
-                x
-              </RemoveAvatarPick>
-            </AvatarChoiceWrapper>
-          ) : (
-            <></>
-          )}
-          <SubmitButton disabled={disabled} onClick={handleForm}>
-            Submit
-          </SubmitButton>
+          <SubmitWrapper>
+            <SubmitButton disabled={disabled} onClick={handleForm}>
+              Submit
+            </SubmitButton>
+          </SubmitWrapper>
         </Form>
       </Wrapper>
     </>
   );
 };
 
-const AvatarChoiceWrapper = styled.div`
-  position: relative;
+const TopWrapper = styled.div`
+  background: var(--app-bg-color-theme);
+  color: white;
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding-top: 7%;
+  padding-bottom: 40px;
+  font-size: 30px;
+  text-shadow: 0 0 10px rgb(46, 45, 46);
+  margin-bottom: 20px;
+`;
+
+const LoginWrapper = styled.div`
+  margin-top: 10px;
+  font-size: 13px;
+`;
+
+const LoginButton = styled(NotStyledButton)`
+  color: white;
+  font-size: 12px;
 `;
 
 const AvatarChoiceDisplay = styled.img`
   position: absolute;
-  width: 45px;
+  width: 65px;
+  right: 5%;
   height: auto;
-  right: 187px;
-  top: -42px;
+  border-radius: 20px;
+  border: 1px dashed gray;
+  margin-top: 75px;
+  padding: 5px;
+  background: white;
 `;
 
 const RemoveAvatarPick = styled(NotStyledButton)`
   font-weight: bold;
   color: rgb(66, 2, 2);
   position: absolute;
-  right: 187px;
-  top: -45px;
-  height: 17px;
-  font-size: 12px;
+  height: 20px;
+  font-size: 16px;
   padding: 0;
-  width: 16px;
+  width: 20px;
+  right: 5%;
+  margin-right: -5px;
+  margin-top: 85px;
+
   border: 1px solid rgb(214, 214, 214);
   background: white;
   border-radius: 50px;
@@ -157,26 +199,33 @@ const RemoveAvatarPick = styled(NotStyledButton)`
 const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
 `;
 
 const Form = styled.form`
-  border: 2px solid black;
-  margin-top: 50px;
-  padding: 50px 20px;
   display: flex;
   flex-direction: column;
+  width: 100%;
+`;
+
+const SubmitWrapper = styled.div`
+  padding: 30px 0;
+  border-top: 2px solid rgb(214, 214, 214);
+  background: rgb(214, 214, 214, 0.5);
+  margin-top: 30px;
+  display: flex;
+  justify-content: center;
 `;
 
 const SubmitButton = styled.button`
   cursor: pointer;
-  margin-top: 10px;
-  padding: 10px 15px;
+  font-size: 17px;
+  width: 70%;
+  padding: 20px 15px;
   transition: background 0.4s ease-in-out, transform 0.1s ease-in-out,
     color 0.4s ease-in-out;
+  color: white;
+  background: rgb(40, 122, 46, 0.5);
   &:hover {
-    color: white;
     background: rgb(40, 122, 46);
   }
   &:active {
@@ -184,6 +233,6 @@ const SubmitButton = styled.button`
   }
   outline: none;
   border: 1px solid rgb(2, 56, 6, 0.4);
-  border-radius: 2px;
+  border-radius: 12px;
 `;
 export default Signup;

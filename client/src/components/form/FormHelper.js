@@ -37,30 +37,34 @@ const FormHelper = ({ label, input, formSubErrors }) => {
   return (
     <>
       {input.name === "avatar" ? (
-        <Wrapper>
+        <>
           <Label htmlFor={input.name}>
             {label}
             {input.required && "*"}
           </Label>
           {formErrors.length > 0 && <ErrorDiv>{formErrors[0].error}</ErrorDiv>}
           <InputButton onClick={handleOpenAvatarModal}>Avatars</InputButton>
-        </Wrapper>
+        </>
       ) : (
-        <Wrapper>
+        <>
           <Label htmlFor={input.name}>
             {label}
             {input.required && "*"}
           </Label>
-          {formErrors.length > 0 && <ErrorDiv>{formErrors[0].error}</ErrorDiv>}
-          <Input
-            error={error}
-            onChange={handleChange}
-            type={input.type}
-            name={input.name}
-            placeholder={`${input.required ? " " : "optional"}`}
-            required={input.required}
-          />
-        </Wrapper>
+          <div style={{ position: "relative" }}>
+            {formErrors.length > 0 && (
+              <ErrorDiv>{formErrors[0].error}</ErrorDiv>
+            )}
+            <Input
+              error={error}
+              onChange={handleChange}
+              type={input.type}
+              name={input.name}
+              placeholder={`${input.required ? " " : "optional"}`}
+              required={input.required}
+            />
+          </div>
+        </>
       )}
     </>
   );
@@ -68,33 +72,30 @@ const FormHelper = ({ label, input, formSubErrors }) => {
 
 const ErrorDiv = styled.div`
   position: absolute;
-  right: 10px;
-  top: -5px;
+  right: 5%;
+  top: -12px;
   background: white;
   padding: 5px;
   font-size: 10px;
   color: red;
 `;
 
-const Wrapper = styled.div`
-  position: relative;
-  padding: 5px;
-  display: flex;
-  justify-content: space-between;
-`;
 const Label = styled.label`
-  font-weight: bold;
+  font-size: 12px;
   margin-top: 7px;
+  padding: 2px;
+  padding-left: 3%;
 `;
 
 const InputButton = styled.button`
   cursor: pointer;
-  margin-left: 20px;
+  margin-left: 5%;
   height: 40px;
   outline: none;
-  border: ${({ error }) => (error ? "2px solid red" : "2px solid black")};
+  border: ${({ error }) =>
+    error ? "1px solid red" : "1px solid rgb(124, 122, 125,0.5)"};
   border-radius: 2px;
-  width: 171px;
+  width: 91%;
   transition: background 0.4s ease-in-out, transform 0.1s ease-in-out,
     color 0.4s ease-in-out;
   &:hover {
@@ -107,10 +108,12 @@ const InputButton = styled.button`
 `;
 
 const Input = styled.input`
-  margin-left: 20px;
+  margin-left: 5%;
   height: 35px;
+  width: 90%;
   outline: none;
-  border: ${({ error }) => (error ? "2px solid red" : "2px solid black")};
+  border: ${({ error }) =>
+    error ? "1px solid red" : "1px solid rgb(124, 122, 125,0.5)"};
   border-radius: 2px;
 `;
 

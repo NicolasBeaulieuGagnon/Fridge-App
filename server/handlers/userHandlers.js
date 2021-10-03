@@ -243,7 +243,7 @@ const getUserByLogin = async (req, res) => {
     const db = client.db("My-Fridge-app");
 
     const result = await db.collection("users").findOne({ userName, password });
-    if (result.userName) {
+    if (result?.userName) {
       return res.status(202).json({ status: 202, data: result });
     } else {
       res.status(404).json({ status: 404, message: "user not found." });
