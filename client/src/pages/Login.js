@@ -79,8 +79,7 @@ const Login = () => {
             id="loginButton"
             onClick={handleLogin}
           >
-            {" "}
-            Login{" "}
+            Login
           </LoginButton>
         </LoginWrapper>
       </Form>

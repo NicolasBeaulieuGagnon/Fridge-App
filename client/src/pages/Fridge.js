@@ -2,10 +2,65 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 
 import Ingredient from "../components/fridge/Ingredient";
+import RadioButtonComponent from "../components/fridge/RadioButtonComponent";
 import MainStyledButton from "../buttons/MainStyledButton";
+
+import { IoIosArrowUp } from "react-icons/io";
+import RecipeDisplay from "../components/fridge/RecipeDisplay";
 
 const Fridge = () => {
   const [ingredientsArray, setIngredientsArray] = useState([]);
+  const [foundRecipes, setFoundRecipes] = useState([]);
+  const [choice, setChoice] = useState(null);
+  const [searching, setSeearching] = useState(false);
+  const [isCollapsed, setIsCollapsed] = useState(false);
+
+  useEffect(() => {
+    const fridgeTab = document.getElementById("fridgeWrapper");
+    setTimeout(() => {
+      fridgeTab.style.height = "95vh";
+      fridgeTab.style.transform = "translateY(2%)";
+    }, 200);
+
+    setTimeout(() => {
+      fridgeTab.style.transform = "translateY(0%)";
+    }, 450);
+  }, []);
+
+  const handleRecipeSearch = () => {
+    //set loading state...
+
+    document.getElementById("fridgeWrapper").style.height = "3vh";
+    setIsCollapsed(true);
+
+    fetch("/getApiKey").then((res) => {
+      res.json().then(({ data }) => {
+        let url;
+        if (choice) {
+          url = `https://api.spoonacular.com/recipes/findByIngredients?apiKey=${data}&ingredients=${ingredientsArray.toString()}&ranking=${choice}&number=50`;
+        } else {
+          url = `https://api.spoonacular.com/recipes/findByIngredients?apiKey=${data}&ingredients=${ingredientsArray.toString()}&number=50`;
+        }
+
+        fetch(url).then((res) => {
+          res.json().then((data) => {
+            setFoundRecipes(data);
+            setIngredientsArray([]);
+          });
+        });
+      });
+    });
+  };
+
+  const ToggleFridgeTab = () => {
+    const fridgeTab = document.getElementById("fridgeWrapper");
+    setIsCollapsed(!isCollapsed);
+    if (fridgeTab.style.height === "3vh") {
+      fridgeTab.style.height = "95vh";
+    } else {
+      fridgeTab.style.height = "3vh";
+    }
+  };
 
   const handleRemoveItem = (ev) => {
     const filteredArray = ingredientsArray.filter((item) => {
@@ -30,84 +85,158 @@ const Fridge = () => {
     }
   };
   return (
-    <Wrapper>
-      <Title>The Fridge</Title>
-      <InputWrapper>
-        Type in your fridge contents.
-        <Input
-          onKeyDown={handleAddItem}
-          type="text"
-          id="textInputId"
-          placeholder="what's in your fridge?"
-        />
-        <AddButton id="Enter" onClick={handleAddItem}>
-          Add
-        </AddButton>
-      </InputWrapper>
-      <IngredientsWrapper>
-        {ingredientsArray &&
-          ingredientsArray.map((item, index) => {
-            return (
-              <Ingredient
-                key={`${item}-${index}`}
-                item={item}
-                onClick={handleRemoveItem}
-              />
-            );
-          })}
-      </IngredientsWrapper>
-    </Wrapper>
+    <>
+      <div style={{ position: "relative" }}>
+        <Wrapper id="fridgeWrapper">
+          <InputWrapper>
+            <TitleWrapper>Type in your fridge contents.</TitleWrapper>
+            <Input
+              onKeyDown={handleAddItem}
+              type="text"
+              id="textInputId"
+              placeholder="what's in your fridge?"
+            />
+            <AddButton id="Enter" onClick={handleAddItem}>
+              Add
+            </AddButton>
+          </InputWrapper>
+          <IngredientsWrapper>
+            {ingredientsArray &&
+              ingredientsArray.map((item, index) => {
+                return (
+                  <Ingredient
+                    key={`${item}-${index}`}
+                    item={item}
+                    onClick={handleRemoveItem}
+                  />
+                );
+              })}
+          </IngredientsWrapper>
+          <RadioButtonComponent choice={choice} setChoice={setChoice} />
+
+          <SearchButton
+            disabled={ingredientsArray.length === 0}
+            onClick={handleRecipeSearch}
+          >
+            Search
+          </SearchButton>
+        </Wrapper>
+        <FridgeTabButton isCollapsed={isCollapsed} onClick={ToggleFridgeTab}>
+          <IoIosArrowUp style={{ marginBottom: "-3px" }} />
+        </FridgeTabButton>
+      </div>
+      <RecipeDisplay foundRecipes={foundRecipes} />
+    </>
   );
 };
-
-const Label = styled.label``;
 
 const InputWrapper = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: flex-start;
-  padding: 10px;
+  align-items: center;
 `;
 
-const Title = styled.h1`
-  background: rgb(0, 44, 120);
+const FridgeTabButton = styled(MainStyledButton)`
+  border: 1px solid black;
+  position: absolute;
+  bottom: -18px;
+  left: 50%;
+  transform: ${({ isCollapsed }) =>
+    isCollapsed
+      ? "translateX(-50%) rotate(180deg) "
+      : " translateX(-50%) rotate(0deg) "};
+  :hover {
+    transform: ${({ isCollapsed }) =>
+      isCollapsed
+        ? "translateX(-50%) rotate(180deg) "
+        : " translateX(-50%) rotate(0deg) "};
+  }
+`;
+
+const TitleWrapper = styled.div`
+  background: var(--app-bg-color-theme);
   color: white;
-  padding: 20px;
-  text-shadow: 5px 5px 20px black;
-  box-shadow: 0 10px 20px 5px grey;
-  border-bottom: 4px solid rgb(0, 0, 0, 0.6);
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding-top: 7%;
+  padding-bottom: 40px;
+  font-size: 30px;
+  text-shadow: 0 0 10px rgb(46, 45, 46);
+  margin-bottom: 20px;
+  box-shadow: 0 0 20px 10px grey;
+  border-bottom: 2px solid rgb(127, 57, 190);
 `;
 
-const AddButton = styled(MainStyledButton)``;
+const AddButton = styled.button`
+  cursor: pointer;
+  font-size: 17px;
+  width: 50%;
+  padding: 20px 15px;
+  transition: background 0.2s ease-in-out, transform 0.1s ease-in-out,
+    color 0.4s ease-in-out;
+  color: white;
+  background: rgb(40, 122, 46, 0.5);
+  &:hover {
+    background: rgb(40, 122, 46);
+  }
+  &:active {
+    transform: scale(0.9);
+  }
+  outline: none;
+  border: 1px solid rgb(2, 56, 6, 0.4);
+  border-radius: 12px;
+`;
 
 const Input = styled.input`
-  margin: 15px;
-  margin-left: 0;
   height: 35px;
-  width: 300px;
+  width: 90%;
+  outline: none;
+  border: 1px solid rgb(124, 122, 125, 0.5);
+  border-radius: 2px;
+  margin-bottom: 40px;
 `;
 
-const SearchButton = styled(MainStyledButton)``;
+const SearchButton = styled(AddButton)`
+  cursor: ${({ disabled }) => (disabled ? "not-allowed" : "pointer")};
+  :hover {
+    background: ${({ disabled }) =>
+      disabled ? "rgb(40, 122, 46, 0.5)" : "rgb(40, 122, 46)"};
+  }
+`;
 
 const Wrapper = styled.div`
-  background: var(--main-bg-color);
-  height: 100vh;
-  width: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: stretch;
+  align-items: center;
+  border-bottom: 1px solid black;
+  overflow: hidden;
+  height: 0vh;
+  transition: 0.3s ease-in-out;
+  background: white;
 `;
 
 const IngredientsWrapper = styled.ul`
-  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: flex-start;
   padding: 10px 20px;
   font-size: 22px;
-  border-bottom-right-radius: 20px;
-  border-bottom-left-radius: 20px;
-  margin-left: 2.5px;
+  background: rgb(127, 57, 251, 0.2);
+  border-radius: 25px;
+  padding: 10px;
   overflow-y: scroll;
   list-style-type: none;
-  &::-webkit-scrollbar-track {
-    background: black;
-    border-radius: 2px;
+  width: 80%;
+  min-height: 80px;
+  max-height: 100px;
+  &::-webkit-scrollbar-thumb {
+    background: none;
   }
 `;
 
