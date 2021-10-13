@@ -1,10 +1,13 @@
 import React, { useEffect } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Signup from "./pages/SignUp";
-import styled from "styled-components";
+
 import { GlobalStyle } from "./components/GlobalStyle";
 import Fridge from "./pages/Fridge";
 import Login from "./pages/Login";
+import Recipe from "./pages/Recipe";
+import Footer from "./Footer";
+import Profile from "./pages/Profile";
 
 const App = () => {
   return (
@@ -21,11 +24,17 @@ const App = () => {
           <Route exact path="/fridge">
             <Fridge />
           </Route>
+          <Route exact path="/recipe/:recipeId">
+            <Recipe />
+          </Route>
+          <Route exact path="/profile">
+            <Profile />
+          </Route>
         </Switch>
+        <Footer />
       </Router>
     </>
   );
 };
 
-const Wrapper = styled.div``;
 export default App;

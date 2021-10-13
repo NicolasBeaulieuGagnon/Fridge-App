@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 import NotStyledButton from "../../buttons/NoStyledButton";
 
-const Recipe = ({ item }) => {
+const FoundRecipes = ({ item }) => {
   return (
     <RecipeWrapper key={item.id}>
       <StyledLink to={`/recipe/${item.id}`}>
@@ -93,4 +93,4 @@ const StyledLink = styled(Link)`
   color: black;
 `;
 
-export default Recipe;
+export default FoundRecipes;

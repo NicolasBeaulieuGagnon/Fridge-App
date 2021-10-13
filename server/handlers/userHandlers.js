@@ -114,6 +114,7 @@ const CreateUser = async (req, res) => {
     const _id = uuidv4();
     const joined = new Date();
     const friends = [];
+    const recipes = [];
 
     const newUser = {
       _id,
@@ -125,6 +126,7 @@ const CreateUser = async (req, res) => {
       avatarSrc,
       joined,
       friends,
+      recipes,
     };
 
     const db = client.db("My-Fridge-app");
@@ -256,6 +258,45 @@ const getUserByLogin = async (req, res) => {
   }
 };
 
+const EditRecipes = async (req, res) => {
+  const client = new MongoClient(MONGO_URI, options);
+  await client.connect();
+  console.log("connected");
+
+  const { type, recipe, _id } = req.body;
+
+  try {
+    const db = client.db("My-Fridge-app");
+    switch (type) {
+      case "add":
+        await db
+          .collection("users")
+          .updateOne({ _id }, { $addToSet: { recipes: recipe } });
+
+        return res.status(202).json({ status: 202, message: "recipe added!" });
+      case "remove":
+        await db
+          .collection("users")
+          .updateOne({ _id }, { $pull: { recipes: recipe } });
+        return res
+          .status(202)
+          .json({ status: 202, message: "recipe removed!" });
+
+      default:
+        res.status(400).json({
+          status: 400,
+          data: { type, recipe, _id },
+          message: "something went wrong.",
+        });
+    }
+  } catch (err) {
+    console.log(err);
+  } finally {
+    client.close();
+    console.log("disconnected");
+  }
+};
+
 module.exports = {
   CreateUser,
   RealRemoveUser,
@@ -265,4 +306,5 @@ module.exports = {
   GetUserById,
   EditUserById,
   getUserByLogin,
+  EditRecipes,
 };

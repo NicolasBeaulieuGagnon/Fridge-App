@@ -15,6 +15,8 @@ const FormHelper = ({ label, input, formSubErrors }) => {
         setError(false);
       }
       setFormErrors(piledErrors);
+    } else {
+      setFormErrors([]);
     }
   }, [formSubErrors]);
   const handleChange = (ev) => {
@@ -34,6 +36,7 @@ const FormHelper = ({ label, input, formSubErrors }) => {
       modal.style.opacity = "1";
     }
   };
+  console.log(formErrors);
   return (
     <>
       {input.name === "avatar" ? (

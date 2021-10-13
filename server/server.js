@@ -13,6 +13,7 @@ const {
   GetUserById,
   EditUserById,
   getUserByLogin,
+  EditRecipes,
 } = require("./handlers/userHandlers");
 
 const PORT = 8000;
@@ -35,6 +36,8 @@ express()
   .patch(`/user/delete/:_id`, FakeRemoveUser)
   //PATCH - edit user information
   .patch(`/user/:_id`, EditUserById)
+  //PATCH - edit user saved recipes
+  .patch(`/user/recipeBook/editRecipes`, EditRecipes)
   //DELETE - real account deletion
   .delete(`/user/:_id/key/:key`, RealRemoveUser)
 

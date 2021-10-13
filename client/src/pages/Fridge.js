@@ -18,12 +18,14 @@ const Fridge = () => {
   useEffect(() => {
     const fridgeTab = document.getElementById("fridgeWrapper");
     setTimeout(() => {
-      fridgeTab.style.height = "95vh";
+      fridgeTab.style.height = "calc(95vh - 90px)";
       fridgeTab.style.transform = "translateY(2%)";
     }, 200);
 
     setTimeout(() => {
       fridgeTab.style.transform = "translateY(0%)";
+      fridgeTab.style.overflowY = "scroll";
+      fridgeTab.style.overflowX = "hidden";
     }, 450);
   }, []);
 
@@ -56,9 +58,14 @@ const Fridge = () => {
     const fridgeTab = document.getElementById("fridgeWrapper");
     setIsCollapsed(!isCollapsed);
     if (fridgeTab.style.height === "3vh") {
-      fridgeTab.style.height = "95vh";
+      fridgeTab.style.height = "calc(95vh - 90px)";
+      fridgeTab.style.overflowY = "scroll";
+      fridgeTab.style.overflowX = "hidden";
     } else {
+      fridgeTab.scrollTop = 0;
       fridgeTab.style.height = "3vh";
+      fridgeTab.style.overflowY = "hidden";
+      fridgeTab.style.overflowX = "hidden";
     }
   };
 
@@ -124,8 +131,8 @@ const Fridge = () => {
         <FridgeTabButton isCollapsed={isCollapsed} onClick={ToggleFridgeTab}>
           <IoIosArrowUp style={{ marginBottom: "-3px" }} />
         </FridgeTabButton>
+        <RecipeDisplay foundRecipes={foundRecipes} />
       </div>
-      <RecipeDisplay foundRecipes={foundRecipes} />
     </>
   );
 };
@@ -201,6 +208,7 @@ const Input = styled.input`
 `;
 
 const SearchButton = styled(AddButton)`
+  margin-bottom: 25px;
   cursor: ${({ disabled }) => (disabled ? "not-allowed" : "pointer")};
   :hover {
     background: ${({ disabled }) =>

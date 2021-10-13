@@ -1,17 +1,17 @@
 import React from "react";
 import styled from "styled-components";
 
-import Recipe from "./Recipe";
+import FoundRecipes from "./FoundRecipes";
 
 const RecipeDisplay = ({ foundRecipes }) => {
   return (
-    <Wrapper display={foundRecipes.length > 0}>
+    <Wrapper showRecipe={foundRecipes.length > 0}>
       <TitleWrapper id="resultsTitle">Your results</TitleWrapper>
 
       <RecipeWrapper>
         {foundRecipes.length > 0 ? (
-          foundRecipes.map((item) => {
-            return <Recipe item={item} />;
+          foundRecipes.map((item, index) => {
+            return <FoundRecipes key={`recipe-${index}`} item={item} />;
           })
         ) : (
           <div></div>
@@ -29,7 +29,7 @@ const Wrapper = styled.div`
   width: 100vw;
   z-index: -1;
   overflow-x: hidden;
-  opacity: ${({ display }) => (console.log(display), display ? "1" : "0")};
+  opacity: ${({ showRecipe }) => (showRecipe ? "1" : "0")};
 `;
 
 const RecipeWrapper = styled.div``;

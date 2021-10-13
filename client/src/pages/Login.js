@@ -1,13 +1,17 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { useHistory } from "react-router-dom";
 import styled from "styled-components";
 
 import FormHelper from "../components/form/FormHelper";
 import NotStyledButton from "../buttons/NoStyledButton";
+import { UserContext } from "../components/contexts/UserContext";
 
 const Login = () => {
   const [isLoading, setIsLoading] = useState(false);
+  const [errors, setErrors] = useState([]);
   const history = useHistory();
+
+  const { setUser } = useContext(UserContext);
 
   useEffect(() => {
     let loginElement = document.getElementById("loginButton");
@@ -18,6 +22,7 @@ const Login = () => {
 
   const handleLogin = (ev) => {
     setIsLoading(true);
+    setErrors([]);
 
     ev.preventDefault();
     const form = document.forms.loginForm.elements;
@@ -37,9 +42,19 @@ const Login = () => {
       fetch(
         `/user/userName/${fullForm.userName}/password/${fullForm.password}`
       ).then((res) =>
-        res.json().then((data) => {
+        res.json().then(({ data, status }) => {
           setIsLoading(false);
-          console.log(data);
+
+          if (status === 202) {
+            setUser(data);
+            localStorage.setItem("fridgeUser", true);
+            localStorage.setItem("fridgeUserId", data._id);
+          } else {
+            setErrors([
+              { error: "wrong password or user name", type: "password" },
+              { error: "wrong password or user name", type: "userName" },
+            ]);
+          }
         })
       );
     } else {
@@ -65,12 +80,12 @@ const Login = () => {
           <FormHelper
             label={"User Name"}
             input={{ type: "text", name: "userName", required: true }}
-            formSubErrors={[]}
+            formSubErrors={errors}
           />
           <FormHelper
             label={"Password"}
             input={{ type: "password", name: "password", required: true }}
-            formSubErrors={[]}
+            formSubErrors={errors}
           />
         </InputsWrapper>
         <LoginWrapper>
