@@ -19,6 +19,12 @@ const FoundRecipes = () => {
   const { user } = useContext(UserContext);
 
   useEffect(() => {
+    if (user?.recipes?.some((recipe) => recipe._id === recipeId)) {
+      setOwnsThisRecipe(true);
+    }
+  }, [user]);
+
+  useEffect(() => {
     if (fullRecipe) {
       const description = document.getElementById("recipeDescription");
       const cutPoint = fullRecipe.summary.indexOf("All things");
@@ -53,7 +59,11 @@ const FoundRecipes = () => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({ type: "add", recipe, _id: user._id }),
-    }).then((res) => res.json().then((data) => console.log(data)));
+    }).then((res) =>
+      res.json().then(() => {
+        setOwnsThisRecipe(true);
+      })
+    );
   };
 
   return (
@@ -89,7 +99,7 @@ const FoundRecipes = () => {
                 </DetailedInfo>
                 {ownsThisRecipe ? (
                   <>
-                    <OwnedRecipe>In Cookbook</OwnedRecipe>
+                    <OwnedRecipe>Saved</OwnedRecipe>
                   </>
                 ) : (
                   <AddCookBookBtn
@@ -174,17 +184,17 @@ const AddCookBookBtn = styled(MainStyledButton)`
   right: 10px;
 `;
 const OwnedRecipe = styled.div`
-  cursor: default;
-  background: var(--btn-bg-color);
+  text-shadow: none;
+  background: white;
+  color: var(--app-bg-color-theme);
   margin-left: 10px;
   font-size: 22px;
   font-weight: bold;
   position: absolute;
-  border-radius: 3px;
+  border-radius: 2px;
   padding: 2px 10px;
-  box-shadow: 0px 0px 10px 0.1px var(--slight-box-shadow);
-  bottom: 0;
-  right: 5px;
+  bottom: 2px;
+  right: 2px;
 `;
 
 const RecipeWrapper = styled.div`

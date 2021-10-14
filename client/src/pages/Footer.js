@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { useHistory } from "react-router-dom";
 
-import NotStyledButton from "./buttons/NoStyledButton";
+import NotStyledButton from "../buttons/NoStyledButton";
 import { CgProfile } from "react-icons/cg";
 import { IoIosReturnLeft, IoReturnDownForwardOutline } from "react-icons/io";
 import { RiFridgeLine } from "react-icons/ri";

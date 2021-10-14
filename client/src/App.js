@@ -6,7 +6,7 @@ import { GlobalStyle } from "./components/GlobalStyle";
 import Fridge from "./pages/Fridge";
 import Login from "./pages/Login";
 import Recipe from "./pages/Recipe";
-import Footer from "./Footer";
+import Footer from "./pages/Footer";
 import Profile from "./pages/Profile";
 
 const App = () => {
