@@ -4,8 +4,9 @@ import { useHistory } from "react-router-dom";
 
 import NotStyledButton from "../buttons/NoStyledButton";
 import { CgProfile } from "react-icons/cg";
-import { IoIosReturnLeft, IoReturnDownForwardOutline } from "react-icons/io";
+import { IoIosReturnLeft, IoIosReturnRight } from "react-icons/io";
 import { RiFridgeLine } from "react-icons/ri";
+import { AiOutlineHome } from "react-icons/ai";
 
 const Footer = () => {
   const history = useHistory();
@@ -15,13 +16,19 @@ const Footer = () => {
       <Button onClick={() => history.goBack()}>
         <IoIosReturnLeft />
       </Button>
-
-      <MiddleButton onClick={() => history.push("/profile")}>
+      <Button onClick={() => history.push("/")}>
+        <AiOutlineHome />
+      </Button>
+      <Button onClick={() => history.push("/profile")}>
         <CgProfile />
-      </MiddleButton>
+      </Button>
 
       <Button onClick={() => history.push("/fridge")}>
         <RiFridgeLine />
+      </Button>
+
+      <Button onClick={() => history.goForward()}>
+        <IoIosReturnRight />
       </Button>
     </Wrapper>
   );
@@ -43,8 +50,8 @@ const Button = styled(NotStyledButton)`
   color: white;
   font-size: 35px;
   padding-top: 15px;
-  margin-left: 20px;
-  margin-right: 20px;
+  margin-left: 5px;
+  margin-right: 5px;
 `;
 
 const MiddleButton = styled(NotStyledButton)`

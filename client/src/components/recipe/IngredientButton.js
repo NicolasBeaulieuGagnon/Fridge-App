@@ -38,11 +38,13 @@ const IngredientItemButton = styled.button`
   cursor: pointer;
   outline: none;
   border-radius: 5px;
-  width: 340px;
+  width: 270px;
   margin: 5px 0px;
   transition: 0.1s ease-in-out;
   transform: ${(props) =>
-    props.hasItem === true ? `translate(-35%) scale(.9)` : `scale(1)`};
+    props.hasItem === true
+      ? `translate(-35%) scale(.9)`
+      : ` translate(-20%) scale(1)`};
   &:hover {
     opacity: 0.8;
   }
@@ -50,7 +52,5 @@ const IngredientItemButton = styled.button`
     transform: scale(0.9);
   }
 `;
-const IngredientItem = styled.li`
-  background: transparent;
-`;
+
 const SubText = styled.span``;

@@ -67,8 +67,8 @@ const Signup = () => {
       })
         .then((res) =>
           res.json().then((data) => {
-            localStorage.setItem("userLoggedIn", true);
-            localStorage.setItem("loggedInUserId", data.data._id);
+            localStorage.setItem("fridgeUser", true);
+            localStorage.setItem("fridgeUserId", data.data._id);
 
             setUser(data.data);
           })

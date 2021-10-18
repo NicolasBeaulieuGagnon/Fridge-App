@@ -8,6 +8,7 @@ import Login from "./pages/Login";
 import Recipe from "./pages/Recipe";
 import Footer from "./pages/Footer";
 import Profile from "./pages/Profile";
+import Homepage from "./pages/Homepage";
 
 const App = () => {
   return (
@@ -15,6 +16,9 @@ const App = () => {
       <GlobalStyle />
       <Router>
         <Switch>
+          <Route exact path="/">
+            <Homepage />
+          </Route>
           <Route exact path="/signup">
             <Signup />
           </Route>
