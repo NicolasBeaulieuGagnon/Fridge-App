@@ -8,7 +8,7 @@
     "build": "cd .. && cd client && yarn build",
     "install-client": "cd .. && cd client && yarn",
     "heroku-postbuild": "yarn install-client && yarn build",
-    "start": "yarn dev",
+    "start": "node server.js",
     "dev": "concurrently -n 'server,client' -c 'blue,green' \"nodemon server.js\" \" yarn start-client\"  ",
     "server": "nodemon server.js"
   },

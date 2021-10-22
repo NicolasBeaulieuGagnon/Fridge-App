@@ -47,7 +47,10 @@ app.get(`/getApiKey`, getApiKey);
 // GET all default avatar  choices
 app.get("/avatarChoice", getAllStoredAvatarChoices);
 
+console.log(process.env.NODE_ENV);
+
 if (process.env.NODE_ENV === "production") {
+  console.log("WE MADE IT IN HERE!");
   app.use(express.static("../client/build"));
 }
 
