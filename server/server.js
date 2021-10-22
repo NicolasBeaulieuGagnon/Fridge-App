@@ -16,37 +16,41 @@ const {
   EditRecipes,
 } = require("./handlers/userHandlers");
 
-const PORT = 8000;
+const PORT = process.env.PORT || 8000;
 
-express()
-  .use(morgan("dev"))
-  .use(express.json())
+const app = express();
+app.use(morgan("dev"));
+app.use(express.json());
 
-  //GET - getting all users
-  .get(`/users`, GetAllUsers)
-  //GET -getting user by id
-  .get("/user/:_id", GetUserById)
-  //GET -get user by login info
-  .get("/user/userName/:userName/password/:password", getUserByLogin)
-  //POST - creating a new user
-  .post(`/user`, CreateUser)
-  //PATCH - recovering fake deleted account
-  .patch(`/user/key/:key`, AccountRecovery)
-  //PATCH - fake delete/restore of an account
-  .patch(`/user/delete/:_id`, FakeRemoveUser)
-  //PATCH - edit user information
-  .patch(`/user/:_id`, EditUserById)
-  //PATCH - edit user saved recipes
-  .patch(`/user/recipeBook/editRecipes`, EditRecipes)
-  //DELETE - real account deletion
-  .delete(`/user/:_id/key/:key`, RealRemoveUser)
+//GET - getting all users
+app.get(`/users`, GetAllUsers);
+//GET -getting user by id
+app.get("/user/:_id", GetUserById);
+//GET -get user by login info
+app.get("/user/userName/:userName/password/:password", getUserByLogin);
+//POST - creating a new user
+app.post(`/user`, CreateUser);
+//PATCH - recovering fake deleted account
+app.patch(`/user/key/:key`, AccountRecovery);
+//PATCH - fake delete/restore of an account
+app.patch(`/user/delete/:_id`, FakeRemoveUser);
+//PATCH - edit user information
+app.patch(`/user/:_id`, EditUserById);
+//PATCH - edit user saved recipes
+app.patch(`/user/recipeBook/editRecipes`, EditRecipes);
+//DELETE - real account deletion
+app.delete(`/user/:_id/key/:key`, RealRemoveUser);
 
-  //GET - get API key from BE to use on the FE
-  .get(`/getApiKey`, getApiKey)
+//GET - get API key from BE to use on the FE
+app.get(`/getApiKey`, getApiKey);
 
-  // GET all default avatar  choices
-  .get("/avatarChoice", getAllStoredAvatarChoices)
+// GET all default avatar  choices
+app.get("/avatarChoice", getAllStoredAvatarChoices);
 
-  .listen(PORT, () => {
-    console.log(`listening on port ${PORT}`);
-  });
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static("../client/build"));
+}
+
+app.listen(PORT, () => {
+  console.log(`listening on port ${PORT}`);
+});
