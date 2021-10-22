@@ -4,8 +4,12 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "start": "cd .. && cd client && yarn client",
-    "dev": "concurrently -n 'server,client' -c 'blue,green' \"nodemon server.js\" \" yarn start\"  ",
+    "start-client": "cd .. && cd client && yarn client",
+    "build": "cd .. && cd client && yarn build",
+    "install-client": "cd .. && cd client && yarn",
+    "heroku-postbuild": "yarn install-client && yarn build",
+    "start": "yarn dev",
+    "dev": "concurrently -n 'server,client' -c 'blue,green' \"nodemon server.js\" \" yarn start-client\"  ",
     "server": "nodemon server.js"
   },
   "author": "",
