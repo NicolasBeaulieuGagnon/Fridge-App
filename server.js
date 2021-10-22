@@ -47,10 +47,8 @@ app.get(`/getApiKey`, getApiKey);
 // GET all default avatar  choices
 app.get("/avatarChoice", getAllStoredAvatarChoices);
 
-console.log(process.env.NODE_ENV);
-
-if (process.env.NODE_ENV !== "production") {
-  app.use(express.static("../client/build"));
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static("./client/build"));
 }
 
 app.listen(PORT, () => {
