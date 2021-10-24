@@ -60,10 +60,9 @@ const grow = keyframes`
 
 const UserName = styled.div`
   position: absolute;
-  left: 150px;
-  top: 27px;
+  top: 5px;
   color: white;
-  font-size: 22px;
+  font-size: 19px;
   opacity: 0;
   animation: ${fadeIn} 0.4s linear forwards;
   animation-delay: 0.7s;

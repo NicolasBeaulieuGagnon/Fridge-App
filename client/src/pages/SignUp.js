@@ -199,6 +199,8 @@ const RemoveAvatarPick = styled(NotStyledButton)`
 const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
+  height: calc(100vh - 50px);
+  overflow: scroll;
 `;
 
 const Form = styled.form`

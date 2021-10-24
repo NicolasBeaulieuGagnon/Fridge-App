@@ -6,7 +6,7 @@ import { IngredientButton } from "../components/recipe/IngredientButton";
 import MainStyledButton from "../buttons/MainStyledButton";
 import { UserContext } from "../components/contexts/UserContext";
 
-const FoundRecipes = () => {
+const Recipes = () => {
   const [fullRecipe, setFullRecipe] = useState(null);
   const [ownsThisRecipe, setOwnsThisRecipe] = useState(false);
 
@@ -16,7 +16,7 @@ const FoundRecipes = () => {
   });
 
   const { recipeId } = useParams();
-  const { user } = useContext(UserContext);
+  const { user, setUpdateUser, updateUser } = useContext(UserContext);
 
   useEffect(() => {
     if (user?.recipes?.some((recipe) => recipe._id === recipeId)) {
@@ -62,6 +62,7 @@ const FoundRecipes = () => {
     }).then((res) =>
       res.json().then(() => {
         setOwnsThisRecipe(true);
+        setUpdateUser(!updateUser);
       })
     );
   };
@@ -137,7 +138,7 @@ const FoundRecipes = () => {
                       <StepWrapper key={step.number}>
                         <StepNumber>{step.number}</StepNumber>
                         {step.ingredients.length > 0 &&
-                          step.ingredients.map((ingredient) => {})}
+                          step.ingredients.map(() => {})}
                         <StepItem>{step.step}</StepItem>
                         <StepBorder />
                       </StepWrapper>
@@ -284,7 +285,9 @@ const StepBorder = styled.div`
   border-radius: 5px;
   width: 95%;
 `;
-const StepItem = styled.li``;
+const StepItem = styled.li`
+  font-size: 18px;
+`;
 
 const StepWrapper = styled.div`
   position: relative;
@@ -297,4 +300,4 @@ const Wrapper = styled.div`
   position: relative;
 `;
 
-export default FoundRecipes;
+export default Recipes;

@@ -22,7 +22,10 @@ const Profile = () => {
   );
 };
 
-const Wrapper = styled.div``;
+const Wrapper = styled.div`
+  height: calc(100vh - 70px);
+  overflow: scroll;
+`;
 
 const Title = styled.div`
   margin-left: 5%;
@@ -51,7 +54,7 @@ const RecipesWrapper = styled.div`
   background: rgb(0, 0, 0, 0.1);
   border-radius: 2px;
   overflow: scroll;
-  height: calc(60vh - 80px);
+  height: calc(56vh - 80px);
 `;
 
 export default Profile;

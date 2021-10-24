@@ -2,8 +2,6 @@ import React from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 
-import NotStyledButton from "../../buttons/NoStyledButton";
-
 const FoundRecipes = ({ item }) => {
   return (
     <RecipeWrapper key={item.id}>
@@ -72,7 +70,7 @@ const ImageWrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 250px;
+  max-width: 250px;
   margin-left: 2%;
   margin-bottom: 10px;
   border: 2px solid var(--primary-border-color);

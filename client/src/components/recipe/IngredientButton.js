@@ -26,7 +26,7 @@ const IngredientImage = styled.img`
   height: 50px;
 `;
 const IngredientItemButton = styled.button`
-  font-size: 20px;
+  font-size: 15px;
   display: flex;
   justify-content: flex-start;
   font-weight: bold;
@@ -38,7 +38,7 @@ const IngredientItemButton = styled.button`
   cursor: pointer;
   outline: none;
   border-radius: 5px;
-  width: 270px;
+  width: 240px;
   margin: 5px 0px;
   transition: 0.1s ease-in-out;
   transform: ${(props) =>
