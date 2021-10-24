@@ -49,6 +49,7 @@ const Login = () => {
             setUser(data);
             localStorage.setItem("fridgeUser", true);
             localStorage.setItem("fridgeUserId", data._id);
+            history.push("/profile");
           } else {
             setErrors([
               { error: "wrong password or user name", type: "password" },

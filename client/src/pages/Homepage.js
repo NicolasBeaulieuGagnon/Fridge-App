@@ -3,7 +3,9 @@ import { useHistory } from "react-router";
 import styled from "styled-components";
 
 import { UserContext } from "../components/contexts/UserContext";
-import fridgeIcon from "../assets/fridgeIcon.png";
+import { changeLogs } from "./changeLogs";
+import Changes from "../components/Changes";
+
 import NotStyledButton from "../buttons/NoStyledButton";
 
 const Homepage = () => {
@@ -16,7 +18,13 @@ const Homepage = () => {
       <Wrapper>
         <Title>Welcome {user.userName} !</Title>
         {user.userName ? (
-          <div></div>
+          <ChangeLogs>
+            <LogTitle>Change logs!</LogTitle>
+            {changeLogs.length > 0 &&
+              changeLogs.map((change) => {
+                return <Changes change={change} />;
+              })}
+          </ChangeLogs>
         ) : (
           <SignInWrapper>
             New to the Fridge Family? Create an account or login to an existing
@@ -34,6 +42,13 @@ const Homepage = () => {
     </>
   );
 };
+
+const ChangeLogs = styled.div`
+  margin: 50px 10%;
+  padding: 20px;
+  background: rgb(67, 168, 167, 0.3);
+  border-radius: 5px;
+`;
 
 const SignInWrapper = styled.div`
   display: flex;
@@ -67,6 +82,8 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  height: calc(100vh - 50px);
+  overflow: scroll;
 `;
 
 const Title = styled.div`
@@ -82,5 +99,9 @@ const Title = styled.div`
   font-size: 30px;
   text-shadow: 0 0 10px rgb(46, 45, 46);
   box-shadow: 0 0 20px 10px grey;
+`;
+
+const LogTitle = styled.div`
+  font-weight: bold;
 `;
 export default Homepage;

@@ -33,6 +33,9 @@ const Fridge = () => {
     //set loading state...
 
     document.getElementById("fridgeWrapper").style.height = "3vh";
+    document.getElementById("fridgeWrapper").style.overflowY = "hidden";
+    document.getElementById("fridgeWrapper").style.overflowX = "hidden";
+    document.getElementById("fridgeWrapper").scrollTop = "0";
     setIsCollapsed(true);
 
     fetch("/getApiKey").then((res) => {
