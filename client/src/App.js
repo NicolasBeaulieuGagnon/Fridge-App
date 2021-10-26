@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Signup from "./pages/SignUp";
+import styled from "styled-components";
 
 import { GlobalStyle } from "./components/GlobalStyle";
 import Fridge from "./pages/Fridge";
@@ -10,9 +11,12 @@ import Footer from "./pages/Footer";
 import Profile from "./pages/Profile";
 import Homepage from "./pages/Homepage";
 
+import { changeLogs } from "./pages/changeLogs";
+
 const App = () => {
   return (
     <>
+      <Version></Version>
       <GlobalStyle />
       <Router>
         <Switch>
@@ -40,5 +44,9 @@ const App = () => {
     </>
   );
 };
+
+const Version = styled.div`
+  position: absolute;
+`;
 
 export default App;

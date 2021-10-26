@@ -7,12 +7,13 @@ import MainStyledButton from "../buttons/MainStyledButton";
 
 import { IoIosArrowUp } from "react-icons/io";
 import RecipeDisplay from "../components/fridge/RecipeDisplay";
+import LoadingFridge from "../components/fridge/LoadingFridge";
 
 const Fridge = () => {
   const [ingredientsArray, setIngredientsArray] = useState([]);
   const [foundRecipes, setFoundRecipes] = useState([]);
   const [choice, setChoice] = useState(null);
-  const [searching, setSeearching] = useState(false);
+  const [searching, setSearching] = useState(false);
   const [isCollapsed, setIsCollapsed] = useState(false);
 
   useEffect(() => {
@@ -31,6 +32,7 @@ const Fridge = () => {
 
   const handleRecipeSearch = () => {
     //set loading state...
+    setSearching(true);
 
     document.getElementById("fridgeWrapper").style.height = "3vh";
     document.getElementById("fridgeWrapper").style.overflowY = "hidden";
@@ -49,6 +51,9 @@ const Fridge = () => {
 
         fetch(url).then((res) => {
           res.json().then((data) => {
+            setTimeout(() => {
+              setSearching(false);
+            }, 2000);
             setFoundRecipes(data);
             setIngredientsArray([]);
           });
@@ -134,7 +139,11 @@ const Fridge = () => {
         <FridgeTabButton isCollapsed={isCollapsed} onClick={ToggleFridgeTab}>
           <IoIosArrowUp style={{ marginBottom: "-3px" }} />
         </FridgeTabButton>
-        <RecipeDisplay foundRecipes={foundRecipes} />
+        {searching ? (
+          <LoadingFridge />
+        ) : (
+          <RecipeDisplay foundRecipes={foundRecipes} />
+        )}
       </div>
     </>
   );
