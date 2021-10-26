@@ -14,8 +14,8 @@ const Profile = () => {
       <Border />
       <Title>My Recipes</Title>
       <RecipesWrapper>
-        {user?.recipes?.map((recipe) => {
-          return <SavedRecipe recipe={recipe} />;
+        {user?.recipes?.map((recipe, index) => {
+          return <SavedRecipe key={index} recipe={recipe} />;
         })}
       </RecipesWrapper>
     </Wrapper>

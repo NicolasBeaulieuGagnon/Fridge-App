@@ -10,4 +10,14 @@ export const changeLogs = [
     message:
       " Just wanted to give a little message about the most recently made changes. Hope everything works smoother now!",
   },
+  {
+    version: 1.02,
+    changes: [
+      "made footer adapt to smallest screen",
+      "added loading animation in the fridge page",
+    ],
+    type: "Bug Fixes",
+    message:
+      " We can now see our little fridgster waddling away as it fetches your recipes!",
+  },
 ];

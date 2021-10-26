@@ -12,17 +12,16 @@ const Homepage = () => {
   const { user } = useContext(UserContext);
 
   const history = useHistory();
-  console.log(user);
   return (
     <>
       <Wrapper>
         <Title>Welcome {user.userName} !</Title>
-        {user.userName ? (
+        {localStorage.getItem("fridgeUser") ? (
           <ChangeLogs>
             <LogTitle>Change logs!</LogTitle>
             {changeLogs.length > 0 &&
-              changeLogs.map((change) => {
-                return <Changes change={change} />;
+              changeLogs.map((change, index) => {
+                return <Changes key={index} change={change} />;
               })}
           </ChangeLogs>
         ) : (
@@ -46,8 +45,10 @@ const Homepage = () => {
 const ChangeLogs = styled.div`
   margin: 50px 10%;
   padding: 20px;
-  background: rgb(67, 168, 167, 0.3);
+  background: rgb(127, 57, 251, 255);
   border-radius: 5px;
+  color: white;
+  text-shadow: 0 0 10px black;
 `;
 
 const SignInWrapper = styled.div`

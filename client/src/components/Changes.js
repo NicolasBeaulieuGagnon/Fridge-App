@@ -9,8 +9,8 @@ const Changes = ({ change: { type, version, changes, message } }) => {
         <Version> -- {version}</Version>
       </Type>
       <ChangeList>
-        {changes.map((element) => (
-          <ChangeItem> - {element}</ChangeItem>
+        {changes.map((element, index) => (
+          <ChangeItem key={index}> - {element}</ChangeItem>
         ))}
       </ChangeList>
       <Message>{message}</Message>
@@ -24,7 +24,13 @@ const Version = styled.span`
   font-size: 10px;
 `;
 const Wrapper = styled.div`
+  text-shadow: none;
+  color: black;
   padding-top: 10px;
+  background: rgb(255, 255, 255, 0.7);
+  margin-top: 5px;
+  padding: 5px;
+  border-radius: 5px;
 `;
 const Type = styled.div``;
 const ChangeList = styled.ul`

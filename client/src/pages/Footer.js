@@ -39,10 +39,11 @@ const Wrapper = styled.div`
   bottom: 0px;
   background: var(--app-bg-color-theme);
   width: 100%;
-  height: 70px;
+  min-height: 70px;
   z-index: 10;
   display: flex;
   flex-direction: row;
+  flex-wrap: wrap;
   justify-content: space-between;
 `;
 

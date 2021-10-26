@@ -8,7 +8,6 @@ export const UserProvider = ({ children }) => {
 
   useEffect(() => {
     if (localStorage.getItem("fridgeUser")) {
-      console.log("hello");
       const fridgeUserId = localStorage.getItem("fridgeUserId");
       fetch(`/user/${fridgeUserId}`).then((res) => {
         res.json().then(({ data }) => {
