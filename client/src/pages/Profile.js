@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import styled, { keyframes } from "styled-components";
 
 import UserBanner from "../components/profileHelpers/UserBanner";
@@ -6,23 +6,92 @@ import SavedRecipe from "../components/profileHelpers/SavedRecipe";
 import { UserContext } from "../components/contexts/UserContext";
 
 const Profile = () => {
-  const { user } = useContext(UserContext);
+  //changes from 3 states, none, removed, removing...
+  const [removing, setRemoving] = useState("none");
+  const [hiddenDiv, setHiddenDiv] = useState(true);
+
+  const { user, setUpdateUser, updateUser } = useContext(UserContext);
+
+  const removeRecipe = (recipe) => {
+    setHiddenDiv(false);
+    setTimeout(() => {
+      setRemoving("Removing...");
+    }, 50);
+    fetch(`/user/recipeBook/editRecipes`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ type: "remove", recipe, _id: user._id }),
+    }).then((res) => {
+      res.json().then((data) => {
+        setTimeout(() => {
+          setRemoving(data.message);
+          setUpdateUser(!updateUser);
+        }, 100);
+        setTimeout(() => {
+          setRemoving("none");
+        }, 400);
+        setTimeout(() => {
+          setHiddenDiv(true);
+        }, 500);
+      });
+    });
+  };
 
   return (
     <Wrapper>
+      <RemoveDiv
+        state={removing === "Removing..."}
+        visable={removing !== "none"}
+        hidden={hiddenDiv}
+      >
+        {removing}
+      </RemoveDiv>
+
       <UserBanner user={user} />
       <Border />
       <Title>My Recipes</Title>
       <RecipesWrapper>
         {user?.recipes?.map((recipe, index) => {
-          return <SavedRecipe key={index} recipe={recipe} />;
+          if (recipe._id) {
+            return (
+              <SavedRecipe
+                removeRecipe={removeRecipe}
+                key={index}
+                recipe={recipe}
+              />
+            );
+          }
         })}
       </RecipesWrapper>
     </Wrapper>
   );
 };
 
+const RemoveDiv = styled.div`
+  border-radius: 4px;
+  text-shadow: 0 0 19px black;
+  box-shadow: 0 0 10px 4px black;
+  border: ${({ state }) =>
+    state ? " 2px solid rgb(153, 12, 27)" : "2px solid rgb(5, 135, 23)"};
+  opacity: ${({ visable }) => (visable ? "1" : "0")};
+  display: ${({ hidden }) => (hidden ? "none" : "block")};
+  position: absolute;
+  left: ${({ visable }) => (visable ? "50%" : "100%")};
+  top: 50%;
+  transform: translate(-50%, -50%);
+  padding: 20px;
+  font-weight: bold;
+  font-size: 19px;
+  z-index: 50;
+  background: ${({ state }) =>
+    state ? "rgb(240, 38, 60)" : "rgb(2, 207, 30)"};
+  transition: opacity 0.5s ease-in-out, left 0.3s ease-in-out;
+`;
+
 const Wrapper = styled.div`
+  position: relative;
   height: calc(100vh - 70px);
   overflow: scroll;
 `;

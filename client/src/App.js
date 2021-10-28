@@ -11,8 +11,6 @@ import Footer from "./pages/Footer";
 import Profile from "./pages/Profile";
 import Homepage from "./pages/Homepage";
 
-import { changeLogs } from "./pages/changeLogs";
-
 const App = () => {
   return (
     <>

@@ -278,9 +278,7 @@ const EditRecipes = async (req, res) => {
         await db
           .collection("users")
           .updateOne({ _id }, { $pull: { recipes: recipe } });
-        return res
-          .status(202)
-          .json({ status: 202, message: "recipe removed!" });
+        return res.status(202).json({ status: 202, message: "Removed!" });
 
       default:
         res.status(400).json({
