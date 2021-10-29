@@ -4,6 +4,7 @@ import styled, { keyframes } from "styled-components";
 import UserBanner from "../components/profileHelpers/UserBanner";
 import SavedRecipe from "../components/profileHelpers/SavedRecipe";
 import { UserContext } from "../components/contexts/UserContext";
+import Settings from "../components/profileHelpers/Settings";
 
 const Profile = () => {
   //changes from 3 states, none, removed, removing...
@@ -65,6 +66,16 @@ const Profile = () => {
           }
         })}
       </RecipesWrapper>
+      {user.firstName && (
+        <>
+          <Title>Settings</Title>
+          <Settings
+            user={user}
+            setUpdateUser={setUpdateUser}
+            updateUser={updateUser}
+          />
+        </>
+      )}
     </Wrapper>
   );
 };
@@ -115,8 +126,7 @@ const Border = styled.div`
 `;
 
 const RecipesWrapper = styled.div`
-  margin: 5%;
-  margin-bottom: 0;
+  margin: 25px 5%;
   display: flex;
   flex-wrap: wrap;
   align-items: flex-start;

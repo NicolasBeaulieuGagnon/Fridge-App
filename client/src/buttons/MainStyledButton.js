@@ -14,7 +14,7 @@ const MainStyledButton = styled(NotStyledButton)`
     transform: scale(1.1);
   }
   &:active {
-    transform: scale(0.9);
+    transform: scale(1);
   }
 `;
 
