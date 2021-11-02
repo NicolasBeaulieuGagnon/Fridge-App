@@ -16,7 +16,7 @@ const AvatarOptionModal = ({ userAvatar, setUserAvatar }) => {
         setDefaultAvatarChoices(data.data);
       });
     });
-  }, []);
+  }, [defaultAvatarChoices]);
 
   // a useEffect to change the background of the chosen Avatar
   useEffect(() => {
@@ -31,7 +31,7 @@ const AvatarOptionModal = ({ userAvatar, setUserAvatar }) => {
         }
       });
     }
-  }, [userAvatar]);
+  }, [userAvatar, defaultAvatarChoices]);
 
   // when you click on an avatar adds it as your chosen avatar
   // then calls handleClose to close the modal.

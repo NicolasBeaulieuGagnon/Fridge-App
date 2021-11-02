@@ -15,6 +15,14 @@ const Setting = ({ type, editable, name, userInfo, index, handleClick }) => {
     setIsEditing(!isEditing);
   };
 
+  const handleSubmit = () => {
+    if (userInfo !== value.trim() && value.length > 0) {
+      handleClick(value, type, toggleEditing);
+    } else {
+      toggleEditing();
+    }
+  };
+
   return (
     <Wrapper even={index % 2 === 0}>
       {name} :
@@ -41,7 +49,7 @@ const Setting = ({ type, editable, name, userInfo, index, handleClick }) => {
           type="text"
           value={value}
           onChange={(ev) => {
-            setValue(ev.target.value);
+            setValue(ev.target.value.trim());
           }}
         />
       ) : (
@@ -49,17 +57,17 @@ const Setting = ({ type, editable, name, userInfo, index, handleClick }) => {
       )}
       {isEditing ? (
         <Span>
-          <Confirm onClick={handleClick}>
-            <AiOutlineCheckCircle size={17} />
+          <Confirm onClick={handleSubmit}>
+            <AiOutlineCheckCircle size={20} />
           </Confirm>
           <Close onClick={toggleEditing}>
-            <AiOutlineCloseCircle size={17} />
+            <AiOutlineCloseCircle size={20} />
           </Close>
         </Span>
       ) : (
         editable && (
           <Edit onClick={toggleEditing}>
-            <AiOutlineEdit size={17} />
+            <AiOutlineEdit size={20} />
           </Edit>
         )
       )}
@@ -70,6 +78,7 @@ const Setting = ({ type, editable, name, userInfo, index, handleClick }) => {
 const Wrapper = styled.div`
   position: relative;
   padding: 5px;
+  padding-right: 20px;
   background: ${({ even }) => (even ? "rgb(219, 219, 219,0.4)" : "white")};
   font-weight: bold;
 `;
@@ -79,7 +88,7 @@ const EditInput = styled.input`
   outline: none;
   font-family: inherit;
   padding: 0;
-  padding-left: 10px;
+  padding-left: 2px;
   margin-left: 5px;
   height: 17px;
 `;

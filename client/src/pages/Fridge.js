@@ -25,7 +25,7 @@ const Fridge = () => {
 
     setTimeout(() => {
       fridgeTab.style.transform = "translateY(0%)";
-      fridgeTab.style.overflowY = "scroll";
+      fridgeTab.style.overflowY = "auto";
       fridgeTab.style.overflowX = "hidden";
     }, 450);
   }, []);
@@ -67,7 +67,7 @@ const Fridge = () => {
     setIsCollapsed(!isCollapsed);
     if (fridgeTab.style.height === "3vh") {
       fridgeTab.style.height = "calc(95vh - 90px)";
-      fridgeTab.style.overflowY = "scroll";
+      fridgeTab.style.overflowY = "auto";
       fridgeTab.style.overflowX = "hidden";
     } else {
       fridgeTab.scrollTop = 0;
@@ -234,7 +234,7 @@ const Wrapper = styled.div`
   justify-content: stretch;
   align-items: center;
   border-bottom: 1px solid black;
-  overflow: hidden;
+  overflow: auto;
   height: 0vh;
   transition: 0.3s ease-in-out;
   background: white;

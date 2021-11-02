@@ -32,7 +32,7 @@ const Login = () => {
       let key = form[i].name;
       let value = form[i].value;
       if (value) {
-        fullForm[key] = value;
+        fullForm[key] = value.trim();
       } else if (key === "") {
       } else {
         fullForm[key] = null;

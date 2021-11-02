@@ -1,5 +1,10 @@
 export const settingChoices = [
   {
+    type: "userName",
+    editable: false,
+    name: "User Name",
+  },
+  {
     type: "firstName",
     editable: true,
     name: "First Name",
@@ -9,22 +14,17 @@ export const settingChoices = [
     editable: true,
     name: "Last Name",
   },
+
+  {
+    type: "password",
+    editable: false,
+    name: "Password",
+  },
   {
     type: "email",
     editable: true,
     name: "Email",
   },
-  {
-    type: "userName",
-    editable: true,
-    name: "User Name",
-  },
-  {
-    type: "password",
-    editable: true,
-    name: "Password",
-  },
-
   {
     type: "avatarSrc",
     editable: false,

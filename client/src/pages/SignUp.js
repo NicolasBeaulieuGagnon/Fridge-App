@@ -139,6 +139,8 @@ const Signup = () => {
 };
 
 const TopWrapper = styled.div`
+  position: relative;
+
   background: var(--app-bg-color-theme);
   color: white;
   width: 100vw;
@@ -166,6 +168,7 @@ const LoginButton = styled(NotStyledButton)`
 const AvatarChoiceDisplay = styled.img`
   position: absolute;
   width: 65px;
+  top: 45px;
   right: 5%;
   height: auto;
   border-radius: 20px;
@@ -183,6 +186,7 @@ const RemoveAvatarPick = styled(NotStyledButton)`
   font-size: 16px;
   padding: 0;
   width: 20px;
+  top: 30px;
   right: 5%;
   margin-right: -5px;
   margin-top: 85px;

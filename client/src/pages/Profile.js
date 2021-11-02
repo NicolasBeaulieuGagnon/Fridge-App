@@ -1,15 +1,19 @@
 import React, { useContext, useState } from "react";
-import styled, { keyframes } from "styled-components";
+import styled from "styled-components";
+
+import { IoIosArrowDown } from "react-icons/io";
 
 import UserBanner from "../components/profileHelpers/UserBanner";
 import SavedRecipe from "../components/profileHelpers/SavedRecipe";
 import { UserContext } from "../components/contexts/UserContext";
 import Settings from "../components/profileHelpers/Settings";
+import NotStyledButton from "../buttons/NoStyledButton";
 
 const Profile = () => {
   //changes from 3 states, none, removed, removing...
   const [removing, setRemoving] = useState("none");
   const [hiddenDiv, setHiddenDiv] = useState(true);
+  const [collapsedSettings, setCollapsedSettings] = useState(true);
 
   const { user, setUpdateUser, updateUser } = useContext(UserContext);
 
@@ -68,8 +72,28 @@ const Profile = () => {
       </RecipesWrapper>
       {user.firstName && (
         <>
-          <Title>Settings</Title>
+          <Title>
+            Settings
+            <OpenSettings
+              onClick={() => {
+                setCollapsedSettings(!collapsedSettings);
+              }}
+            >
+              {
+                <IoIosArrowDown
+                  size={18}
+                  style={{
+                    transition: "100ms ease-in-out",
+                    transform: `rotate(${
+                      collapsedSettings ? `-90deg` : `0deg`
+                    })`,
+                  }}
+                />
+              }
+            </OpenSettings>
+          </Title>
           <Settings
+            isClosed={collapsedSettings}
             user={user}
             setUpdateUser={setUpdateUser}
             updateUser={updateUser}
@@ -80,6 +104,7 @@ const Profile = () => {
   );
 };
 
+const OpenSettings = styled(NotStyledButton)``;
 const RemoveDiv = styled.div`
   border-radius: 4px;
   text-shadow: 0 0 19px black;
@@ -104,7 +129,7 @@ const RemoveDiv = styled.div`
 const Wrapper = styled.div`
   position: relative;
   height: calc(100vh - 70px);
-  overflow: scroll;
+  overflow: auto;
 `;
 
 const Title = styled.div`

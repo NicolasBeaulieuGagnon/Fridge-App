@@ -36,7 +36,6 @@ const FormHelper = ({ label, input, formSubErrors }) => {
       modal.style.opacity = "1";
     }
   };
-  console.log(formErrors);
   return (
     <>
       {input.name === "avatar" ? (

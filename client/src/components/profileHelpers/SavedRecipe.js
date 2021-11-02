@@ -32,7 +32,7 @@ const RemoveButton = styled(NotStyledButton)`
   position: absolute;
   top: 1px;
   right: 1px;
-  color: rgb(115, 29, 14);
+  color: rgb(214, 55, 49);
 `;
 
 const Image = styled.img`
