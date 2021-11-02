@@ -14,7 +14,7 @@ import Homepage from "./pages/Homepage";
 const App = () => {
   return (
     <>
-      <Version></Version>
+      <Version>v 1.02</Version>
       <GlobalStyle />
       <Router>
         <Switch>
@@ -45,6 +45,12 @@ const App = () => {
 
 const Version = styled.div`
   position: absolute;
+  opacity: 0.6;
+  font-size: 10px;
+  bottom: 0;
+  padding-right: 5px;
+  right: 0;
+  z-index: 20000;
 `;
 
 export default App;
