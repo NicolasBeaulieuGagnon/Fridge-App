@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Signup from "./pages/SignUp";
 import styled from "styled-components";
 
+import { changeLogs } from "./changeLogs";
 import { GlobalStyle } from "./components/GlobalStyle";
 import Fridge from "./pages/Fridge";
 import Login from "./pages/Login";
@@ -14,7 +15,7 @@ import Homepage from "./pages/Homepage";
 const App = () => {
   return (
     <>
-      <Version>v 1.02</Version>
+      <Version>{changeLogs[changeLogs.length - 1].version}</Version>
       <GlobalStyle />
       <Router>
         <Switch>

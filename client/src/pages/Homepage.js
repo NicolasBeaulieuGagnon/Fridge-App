@@ -3,7 +3,7 @@ import { useHistory } from "react-router";
 import styled from "styled-components";
 
 import { UserContext } from "../components/contexts/UserContext";
-import { changeLogs } from "./changeLogs";
+import { changeLogs } from "../changeLogs";
 import Changes from "../components/Changes";
 
 import NotStyledButton from "../buttons/NoStyledButton";

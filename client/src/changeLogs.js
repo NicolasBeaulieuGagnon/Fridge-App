@@ -20,4 +20,15 @@ export const changeLogs = [
     message:
       " We can now see our little fridgster waddling away as it fetches your recipes!",
   },
+  {
+    version: 1.03,
+    changes: [
+      "you may now unlike recipes",
+      "added settings in your profile page",
+      "made some randomization happen when searching for similar recipes",
+    ],
+    type: "Features & Bug Fixes",
+    message:
+      " We are getting close to a somewhat usable profile page, being able to edit some info! Also you should be noticing some small variations while searching with similar ingredients",
+  },
 ];
