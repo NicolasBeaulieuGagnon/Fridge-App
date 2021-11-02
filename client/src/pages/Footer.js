@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import styled from "styled-components";
 import { useHistory } from "react-router-dom";
 
@@ -7,23 +7,32 @@ import { CgProfile } from "react-icons/cg";
 import { IoIosReturnLeft, IoIosReturnRight } from "react-icons/io";
 import { RiFridgeLine } from "react-icons/ri";
 import { AiOutlineHome } from "react-icons/ai";
+import { UserContext } from "../components/contexts/UserContext";
 
 const Footer = () => {
   const history = useHistory();
+  const { user } = useContext(UserContext);
 
   return (
     <Wrapper>
       <Button onClick={() => history.goBack()}>
         <IoIosReturnLeft />
       </Button>
+      <Button
+        grey={!user._id}
+        disabled={!user._id}
+        onClick={() => history.push("/profile")}
+      >
+        <CgProfile />
+      </Button>
       <Button onClick={() => history.push("/")}>
         <AiOutlineHome />
       </Button>
-      <Button onClick={() => history.push("/profile")}>
-        <CgProfile />
-      </Button>
-
-      <Button onClick={() => history.push("/fridge")}>
+      <Button
+        grey={!user._id}
+        disabled={!user._id}
+        onClick={() => history.push("/fridge")}
+      >
         <RiFridgeLine />
       </Button>
 
@@ -44,13 +53,15 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  justify-content: space-between;
+  justify-content: space-around;
 `;
 
 const Button = styled(NotStyledButton)`
+  cursor: ${({ grey }) => (grey ? `default` : `pointer`)};
   color: white;
   font-size: 35px;
   padding-top: 15px;
+  opacity: ${({ grey }) => (grey ? `0.3` : `1`)};
 `;
 
 export default Footer;

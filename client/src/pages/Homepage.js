@@ -84,7 +84,7 @@ const Wrapper = styled.div`
   flex-direction: column;
   align-items: center;
   height: calc(100vh - 50px);
-  overflow: scroll;
+  overflow: auto;
 `;
 
 const Title = styled.div`
@@ -93,8 +93,7 @@ const Title = styled.div`
   width: 100vw;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  text-align: center;
   padding-top: 7%;
   padding-bottom: 40px;
   font-size: 30px;
