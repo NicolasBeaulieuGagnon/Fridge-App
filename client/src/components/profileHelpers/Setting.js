@@ -27,7 +27,7 @@ const Setting = ({ type, editable, name, userInfo, index, handleClick }) => {
     <Wrapper even={index % 2 === 0}>
       {name} :
       {type === "avatarSrc" ? (
-        <ChangeAvatar>Change Avatar</ChangeAvatar>
+        <ChangeAvatar disabled={true}>Change Avatar</ChangeAvatar>
       ) : type === "password" ? (
         isEditing ? (
           <EditInput
@@ -115,16 +115,17 @@ const Span = styled.span`
 `;
 
 const ChangeAvatar = styled(NotStyledButton)`
+  cursor: not-allowed;
   border: 1px dashed rgb(209, 207, 207);
   margin-left: 5px;
   transition: 0.2s ease-in-out;
-  &:hover {
+  /* &:hover {
     border: 1px dashed white;
     background: rgb(209, 207, 207);
   }
   &:active {
     transform: scale(0.9);
-  }
+  } */
 `;
 
 const Confirm = styled(NotStyledButton)`
