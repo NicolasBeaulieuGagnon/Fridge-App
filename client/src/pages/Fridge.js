@@ -4,10 +4,11 @@ import styled from "styled-components";
 import Ingredient from "../components/fridge/Ingredient";
 import RadioButtonComponent from "../components/fridge/RadioButtonComponent";
 import MainStyledButton from "../buttons/MainStyledButton";
-
-import { IoIosArrowUp } from "react-icons/io";
 import RecipeDisplay from "../components/fridge/RecipeDisplay";
 import LoadingFridge from "../components/fridge/LoadingFridge";
+
+import { mixRecipes } from "../components/fridge/generateMixedRecipes";
+import { IoIosArrowUp } from "react-icons/io";
 
 const Fridge = () => {
   const [ingredientsArray, setIngredientsArray] = useState([]);
@@ -44,9 +45,9 @@ const Fridge = () => {
       res.json().then(({ data }) => {
         let url;
         if (choice) {
-          url = `https://api.spoonacular.com/recipes/findByIngredients?apiKey=${data}&ingredients=${ingredientsArray.toString()}&ranking=${choice}&number=50`;
+          url = `https://api.spoonacular.com/recipes/findByIngredients?apiKey=${data}&ingredients=${ingredientsArray.toString()}&ranking=${choice}&number=100`;
         } else {
-          url = `https://api.spoonacular.com/recipes/findByIngredients?apiKey=${data}&ingredients=${ingredientsArray.toString()}&number=50`;
+          url = `https://api.spoonacular.com/recipes/findByIngredients?apiKey=${data}&ingredients=${ingredientsArray.toString()}&number=100`;
         }
 
         fetch(url).then((res) => {
@@ -54,7 +55,8 @@ const Fridge = () => {
             setTimeout(() => {
               setSearching(false);
             }, 2000);
-            setFoundRecipes(data);
+            const mixed = mixRecipes(data, 50);
+            setFoundRecipes(mixed);
             setIngredientsArray([]);
           });
         });

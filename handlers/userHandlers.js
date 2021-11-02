@@ -210,7 +210,6 @@ const EditUserById = async (req, res) => {
   console.log("connected");
 
   try {
-    console.log("CONSOLE LOG OF REQ BODY", req.body);
     const db = client.db("My-Fridge-app");
     const user = await db.collection("users").findOne({ _id });
     const query = { _id };
