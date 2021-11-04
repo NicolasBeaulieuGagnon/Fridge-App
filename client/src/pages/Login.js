@@ -62,6 +62,16 @@ const Login = () => {
       setTimeout(() => {
         setIsLoading(false);
       }, 500);
+      if (fullForm.userName === null && fullForm.password === null) {
+        setErrors([
+          { error: "no password given", type: "password" },
+          { error: "no username given", type: "userName" },
+        ]);
+      } else if (fullForm.userName === null) {
+        setErrors([{ error: "no username given", type: "userName" }]);
+      } else {
+        setErrors([{ error: "no password given", type: "password" }]);
+      }
     }
   };
 

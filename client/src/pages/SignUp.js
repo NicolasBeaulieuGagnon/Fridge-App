@@ -51,7 +51,6 @@ const Signup = () => {
     } else {
       fullForm.avatarSrc = null;
     }
-    console.log(fullForm);
     const errors = [
       ...checkRequired(fullForm, formInfoNeeded),
       ...checkPassword(fullForm.password, fullForm.confirmPassword),
@@ -204,7 +203,7 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   height: calc(100vh - 50px);
-  overflow: scroll;
+  overflow: auto;
 `;
 
 const Form = styled.form`

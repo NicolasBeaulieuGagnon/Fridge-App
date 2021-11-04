@@ -37,10 +37,10 @@ const FormHelper = ({ label, input, formSubErrors }) => {
     }
   };
   return (
-    <>
+    <Wrapper>
       {input.name === "avatar" ? (
         <>
-          <Label htmlFor={input.name}>
+          <Label error={error} htmlFor={input.name}>
             {label}
             {input.required && "*"}
           </Label>
@@ -49,7 +49,7 @@ const FormHelper = ({ label, input, formSubErrors }) => {
         </>
       ) : (
         <>
-          <Label htmlFor={input.name}>
+          <Label error={error} htmlFor={input.name}>
             {label}
             {input.required && "*"}
           </Label>
@@ -68,14 +68,18 @@ const FormHelper = ({ label, input, formSubErrors }) => {
           </div>
         </>
       )}
-    </>
+    </Wrapper>
   );
 };
+
+const Wrapper = styled.div`
+  position: relative;
+`;
 
 const ErrorDiv = styled.div`
   position: absolute;
   right: 5%;
-  top: -12px;
+  top: -5px;
   background: white;
   padding: 5px;
   font-size: 10px;
@@ -83,26 +87,32 @@ const ErrorDiv = styled.div`
 `;
 
 const Label = styled.label`
+  color: ${({ error }) => (error ? "red" : "black")};
+  position: absolute;
+  z-index: 5;
+  top: -5px;
+  padding: 2px 4px;
+  background: white;
   font-size: 12px;
-  margin-top: 7px;
-  padding: 2px;
-  padding-left: 3%;
+  margin-left: calc(5% + 10px);
 `;
 
 const InputButton = styled.button`
   cursor: pointer;
-  margin-left: 5%;
+  margin-left: calc(5% - 15px);
+  padding-right: 20px;
   height: 40px;
   outline: none;
+  background: white;
   border: ${({ error }) =>
     error ? "1px solid red" : "1px solid rgb(124, 122, 125,0.5)"};
   border-radius: 2px;
-  width: 91%;
-  transition: background 0.4s ease-in-out, transform 0.1s ease-in-out,
-    color 0.4s ease-in-out;
+  width: calc(90% + 19px);
+  transition: font-size 0.2s ease-in-out, color 0.2s ease-in-out,
+    transform 0.1s ease-in-out, color 0.4s ease-in-out;
   &:hover {
-    color: white;
-    background: rgb(0, 58, 150);
+    color: rgb(0, 58, 150);
+    font-size: 16px;
   }
   &:active {
     transform: scale(0.9);
@@ -110,7 +120,9 @@ const InputButton = styled.button`
 `;
 
 const Input = styled.input`
-  margin-left: 5%;
+  margin: 7px 0;
+  padding-left: 15px;
+  margin-left: calc(5% - 15px);
   height: 35px;
   width: 90%;
   outline: none;
