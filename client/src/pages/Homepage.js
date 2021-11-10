@@ -85,6 +85,7 @@ const Wrapper = styled.div`
   align-items: center;
   height: calc(100vh - 50px);
   overflow: auto;
+  overflow-x: hidden;
 `;
 
 const Title = styled.div`
