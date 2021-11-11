@@ -125,13 +125,12 @@ const Signup = () => {
               />
             );
           })}
-
-          <SubmitWrapper>
-            <SubmitButton disabled={disabled} onClick={handleForm}>
-              Submit
-            </SubmitButton>
-          </SubmitWrapper>
         </Form>
+        <SubmitWrapper>
+          <SubmitButton disabled={disabled} onClick={handleForm}>
+            Submit
+          </SubmitButton>
+        </SubmitWrapper>
       </Wrapper>
     </>
   );
@@ -202,14 +201,19 @@ const RemoveAvatarPick = styled(NotStyledButton)`
 const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
-  height: calc(100vh - 50px);
+  height: calc(100vh - 10px);
   overflow: auto;
+  overflow-x: hidden;
 `;
 
 const Form = styled.form`
   display: flex;
   flex-direction: column;
-  width: 100%;
+  max-width: 600px;
+  @media screen and (min-width: 600px) {
+    margin-left: 50%;
+    transform: translate(-50%);
+  }
 `;
 
 const SubmitWrapper = styled.div`

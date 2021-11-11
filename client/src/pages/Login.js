@@ -99,16 +99,16 @@ const Login = () => {
             formSubErrors={errors}
           />
         </InputsWrapper>
-        <LoginWrapper>
-          <LoginButton
-            disabled={isLoading}
-            id="loginButton"
-            onClick={handleLogin}
-          >
-            Login
-          </LoginButton>
-        </LoginWrapper>
       </Form>
+      <LoginWrapper>
+        <LoginButton
+          disabled={isLoading}
+          id="loginButton"
+          onClick={handleLogin}
+        >
+          Login
+        </LoginButton>
+      </LoginWrapper>
     </Wrapper>
   );
 };
@@ -117,6 +117,10 @@ const Form = styled.form`
   display: flex;
   flex-direction: column;
   justify-content: center;
+  @media screen and (min-width: 600px) {
+    margin-left: 50%;
+    transform: translate(-50%);
+  }
 `;
 
 const LoginWrapper = styled.div`
@@ -147,7 +151,9 @@ const LoginButton = styled.button`
   border: 1px solid rgb(2, 56, 6, 0.4);
   border-radius: 12px;
 `;
-const Wrapper = styled.div``;
+const Wrapper = styled.div`
+  overflow-x: hidden;
+`;
 
 const InputsWrapper = styled.div``;
 

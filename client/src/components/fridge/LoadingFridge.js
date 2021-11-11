@@ -97,7 +97,6 @@ const fadeInOut = keyframes`
 const Wrapper = styled.div`
   position: absolute;
   width: 100%;
-  height: calc(100vh - 80px);
   display: flex;
   flex-direction: column;
   justify-content: center;

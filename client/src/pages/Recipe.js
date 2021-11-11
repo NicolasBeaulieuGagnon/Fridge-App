@@ -160,7 +160,8 @@ const Recipes = () => {
 
 const ResultWrapper = styled.div`
   overflow: scroll;
-  height: calc(100vh - 45px);
+  height: calc(100vh);
+  overflow-x: hidden;
 `;
 
 const NoInstructionsDiv = styled.div``;
