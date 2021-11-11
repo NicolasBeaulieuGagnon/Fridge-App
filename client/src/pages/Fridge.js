@@ -20,7 +20,7 @@ const Fridge = () => {
   useEffect(() => {
     const fridgeTab = document.getElementById("fridgeWrapper");
     setTimeout(() => {
-      fridgeTab.style.height = "calc(95vh - 90px)";
+      fridgeTab.style.height = "calc(95vh - 10px)";
       fridgeTab.style.transform = "translateY(2%)";
     }, 200);
 
@@ -68,7 +68,7 @@ const Fridge = () => {
     const fridgeTab = document.getElementById("fridgeWrapper");
     setIsCollapsed(!isCollapsed);
     if (fridgeTab.style.height === "3vh") {
-      fridgeTab.style.height = "calc(95vh - 90px)";
+      fridgeTab.style.height = "calc(95vh - 10px)";
       fridgeTab.style.overflowY = "auto";
       fridgeTab.style.overflowX = "hidden";
     } else {
@@ -190,6 +190,7 @@ const TitleWrapper = styled.div`
 `;
 
 const AddButton = styled.button`
+  max-width: 500px;
   cursor: pointer;
   font-size: 17px;
   width: 50%;
@@ -247,13 +248,20 @@ const IngredientsWrapper = styled.ul`
   padding: 10px 20px;
   font-size: 22px;
   background: rgb(127, 57, 251, 0.2);
-  border-radius: 25px;
+  border-radius: 15px;
   padding: 10px;
   overflow-y: scroll;
   list-style-type: none;
   width: 80%;
+  box-shadow: 0 0 20px 1px rgb(0, 0, 0, 0.2) inset;
+  max-width: 600px;
   min-height: 80px;
-  max-height: 100px;
+  max-height: 111px;
+  &:hover {
+    &::-webkit-scrollbar-thumb {
+      background: rgb(127, 57, 251, 0.7);
+    }
+  }
   &::-webkit-scrollbar-thumb {
     background: none;
   }

@@ -63,7 +63,8 @@ const Footer = () => {
 };
 
 const Wrapper = styled.div`
-  position: absolute;
+  position: fixed;
+  box-shadow: 0 0 20px 1px rgb(0, 0, 0, 0.3);
   bottom: ${({ close }) => (close ? "10px" : "0px")};
   background: var(--app-bg-color-theme);
   width: ${({ close }) => (close ? "52px" : "100%")};
@@ -76,6 +77,7 @@ const Wrapper = styled.div`
   align-items: center;
   justify-content: space-around;
   transition: 0.3s ease-in-out;
+  z-index: 5000;
 `;
 
 const Button = styled(NotStyledButton)`

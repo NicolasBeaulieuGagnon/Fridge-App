@@ -128,8 +128,9 @@ const RemoveDiv = styled.div`
 
 const Wrapper = styled.div`
   position: relative;
-  height: calc(100vh - 70px);
+  height: calc(100vh - 20px);
   overflow: auto;
+  overflow-x: hidden;
 `;
 
 const Title = styled.div`
@@ -158,7 +159,14 @@ const RecipesWrapper = styled.div`
   background: rgb(0, 0, 0, 0.1);
   border-radius: 2px;
   overflow: scroll;
+  overflow-x: hidden;
+  padding-bottom: 10px;
+  padding-top: 10px;
+  box-shadow: 0 0 10px 1px rgb(0, 0, 0, 0.2) inset;
   height: calc(56vh - 80px);
+  @media screen and (max-width: 775px) {
+    justify-content: center;
+  }
 `;
 
 export default Profile;

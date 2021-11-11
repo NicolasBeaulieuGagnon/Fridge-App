@@ -33,7 +33,10 @@ h1 {
   vertical-align: baseline;
   font-family: 'ABeeZee';
 }
+button{
+  font-family: 'ABeeZee';
 
+}
 
 input:-webkit-autofill,
 input:-webkit-autofill:hover, 

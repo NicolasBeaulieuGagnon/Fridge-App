@@ -37,6 +37,7 @@ const Settings = ({ user, updateUser, setUpdateUser, isClosed }) => {
       {settingChoices.map(({ type, editable, name }, index) => {
         return (
           <Setting
+            key={index}
             type={type}
             editable={editable}
             name={name}
@@ -53,7 +54,7 @@ const Settings = ({ user, updateUser, setUpdateUser, isClosed }) => {
 const Wrapper = styled.div`
   margin: 20px 5%;
   transition: 200ms ease-in-out;
-  height: ${({ isClosed }) => (isClosed ? `0px` : `175px`)};
+  height: ${({ isClosed }) => (isClosed ? `0px` : `225px`)};
   overflow: hidden;
 `;
 
