@@ -31,4 +31,14 @@ export const changeLogs = [
     message:
       " We are getting close to a somewhat usable profile page, being able to edit some info! Also you should be noticing some small variations while searching with similar ingredients",
   },
+  {
+    version: 1.04,
+    changes: [
+      "hid away the change logs in the little bug in the top left of the screen!",
+      "changed the bottom navbar display",
+    ],
+    type: "Features",
+    message:
+      "Two small features added for this one. Changed the way the bottom menu is so now you should be able to have a bit more screen! Also hid these change logs in a little bug in the top left if you want to see.",
+  },
 ];
