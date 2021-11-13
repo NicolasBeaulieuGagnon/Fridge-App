@@ -9,23 +9,18 @@ import { RiFridgeLine } from "react-icons/ri";
 import { AiOutlineHome, AiOutlinePlusCircle } from "react-icons/ai";
 import { UserContext } from "../components/contexts/UserContext";
 
-const Footer = () => {
-  const [openNav, setOpenNav] = useState(true);
+const Footer = ({ openNav, setOpenNav }) => {
+  // const [openNav, setOpenNav] = useState(true);
   const history = useHistory();
   const { user } = useContext(UserContext);
 
   return (
-    <Wrapper
-      close={openNav}
-      onClick={() => {
-        setOpenNav(true);
-      }}
-    >
+    <Wrapper close={openNav}>
       {openNav ? (
         <Button
           onClick={(ev) => {
             ev.stopPropagation();
-            setOpenNav(!openNav);
+            setOpenNav(false);
           }}
         >
           <AiOutlinePlusCircle />

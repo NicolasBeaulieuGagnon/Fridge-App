@@ -1,10 +1,10 @@
 import React, { useState, useContext } from "react";
 import { useHistory } from "react-router";
-import { useTransition, animated } from "react-spring";
 import styled from "styled-components";
 import { AiFillBug } from "react-icons/ai";
 import Tippy from "@tippyjs/react";
 import "tippy.js/dist/tippy.css";
+import SlideFromLeft from "../components/animations/SlideFromLeft";
 
 import { UserContext } from "../components/contexts/UserContext";
 import { changeLogs } from "../changeLogs";
@@ -15,27 +15,6 @@ import NotStyledButton from "../buttons/NoStyledButton";
 const Homepage = () => {
   const [showLogs, setShowLogs] = useState(false);
   const { user } = useContext(UserContext);
-
-  const transition = useTransition(showLogs, {
-    from: {
-      x: -800,
-      y: -800,
-      opacity: 0,
-      maxWidth: 0,
-    },
-    enter: {
-      x: 0,
-      y: 0,
-      opacity: 1,
-      maxWidth: 800,
-    },
-    leave: {
-      x: -800,
-      y: -400,
-      opacity: 0,
-      maxWidth: 0,
-    },
-  });
 
   const history = useHistory();
   return (
@@ -49,7 +28,7 @@ const Homepage = () => {
                 <AiFillBug />
               </BugButton>
             </Tippy>
-            {/* {showLogs && (
+            <SlideFromLeft state={showLogs}>
               <ChangeLogs>
                 <LogTitle>Change logs!</LogTitle>
                 {changeLogs.length > 0 &&
@@ -57,22 +36,7 @@ const Homepage = () => {
                     return <Changes key={index} change={change} />;
                   })}
               </ChangeLogs>
-            )} */}
-            {transition((style, item) =>
-              item ? (
-                <animated.div style={style}>
-                  <ChangeLogs>
-                    <LogTitle>Change logs!</LogTitle>
-                    {changeLogs.length > 0 &&
-                      changeLogs.map((change, index) => {
-                        return <Changes key={index} change={change} />;
-                      })}
-                  </ChangeLogs>
-                </animated.div>
-              ) : (
-                ""
-              )
-            )}
+            </SlideFromLeft>
           </>
         ) : (
           <SignInWrapper>
@@ -99,6 +63,7 @@ const ChangeLogs = styled.div`
   border-radius: 5px;
   color: white;
   text-shadow: 0 0 10px black;
+  box-shadow: 0 0 20px 1px rgb(0, 0, 0, 0.5);
 `;
 
 const BugButton = styled(NotStyledButton)`

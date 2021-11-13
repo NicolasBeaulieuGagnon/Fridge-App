@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Signup from "./pages/SignUp";
 import styled from "styled-components";
@@ -13,6 +13,20 @@ import Profile from "./pages/Profile";
 import Homepage from "./pages/Homepage";
 
 const App = () => {
+  const [openNav, setOpenNav] = useState(true);
+
+  // to be able to close the FooterNav from anywhere while clicking away from it.
+  useEffect(() => {
+    const closeNav = () => {
+      setOpenNav(true);
+    };
+
+    document.body.addEventListener("click", closeNav);
+
+    return () => {
+      document.body.removeEventListener("click", closeNav);
+    };
+  }, []);
   return (
     <>
       <Version> V - {changeLogs[changeLogs.length - 1].version}</Version>
@@ -38,7 +52,7 @@ const App = () => {
             <Profile />
           </Route>
         </Switch>
-        <Footer />
+        <Footer openNav={openNav} setOpenNav={setOpenNav} />
       </Router>
     </>
   );
