@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import styled from "styled-components";
 
 import Ingredient from "../components/fridge/Ingredient";
@@ -6,33 +6,28 @@ import RadioButtonComponent from "../components/fridge/RadioButtonComponent";
 import MainStyledButton from "../buttons/MainStyledButton";
 import RecipeDisplay from "../components/fridge/RecipeDisplay";
 import LoadingFridge from "../components/fridge/LoadingFridge";
-
+import { SearchedRecipesContext } from "../components/contexts/SearchedRecipesContext";
 import { mixRecipes } from "../components/fridge/generateMixedRecipes";
+
 import { IoIosArrowUp } from "react-icons/io";
 
 const Fridge = () => {
   const [ingredientsArray, setIngredientsArray] = useState([]);
-  const [foundRecipes, setFoundRecipes] = useState([]);
   const [choice, setChoice] = useState(null);
   const [searching, setSearching] = useState(false);
-  const [isCollapsed, setIsCollapsed] = useState(false);
+  const [isCollapsed, setIsCollapsed] = useState(true);
+
+  const { recipesArray, setRecipesArray } = useContext(SearchedRecipesContext);
 
   useEffect(() => {
-    const fridgeTab = document.getElementById("fridgeWrapper");
-    setTimeout(() => {
-      fridgeTab.style.height = "calc(95vh - 10px)";
-      fridgeTab.style.transform = "translateY(2%)";
-    }, 200);
-
-    setTimeout(() => {
-      fridgeTab.style.transform = "translateY(0%)";
-      fridgeTab.style.overflowY = "auto";
-      fridgeTab.style.overflowX = "hidden";
-    }, 450);
+    if (!recipesArray?.length > 0) {
+      setTimeout(() => {
+        setIsCollapsed(false);
+      }, 200);
+    }
   }, []);
 
   const handleRecipeSearch = () => {
-    //set loading state...
     setSearching(true);
 
     document.getElementById("fridgeWrapper").style.height = "3vh";
@@ -56,7 +51,7 @@ const Fridge = () => {
               setSearching(false);
             }, 2000);
             const mixed = mixRecipes(data, 50);
-            setFoundRecipes(mixed);
+            setRecipesArray(mixed);
             setIngredientsArray([]);
           });
         });
@@ -66,16 +61,10 @@ const Fridge = () => {
 
   const ToggleFridgeTab = () => {
     const fridgeTab = document.getElementById("fridgeWrapper");
+    console.log(fridgeTab.style.height);
     setIsCollapsed(!isCollapsed);
-    if (fridgeTab.style.height === "3vh") {
-      fridgeTab.style.height = "calc(95vh - 10px)";
-      fridgeTab.style.overflowY = "auto";
-      fridgeTab.style.overflowX = "hidden";
-    } else {
+    if (!fridgeTab.style.height === "3vh") {
       fridgeTab.scrollTop = 0;
-      fridgeTab.style.height = "3vh";
-      fridgeTab.style.overflowY = "hidden";
-      fridgeTab.style.overflowX = "hidden";
     }
   };
 
@@ -104,7 +93,7 @@ const Fridge = () => {
   return (
     <>
       <div style={{ position: "relative" }}>
-        <Wrapper id="fridgeWrapper">
+        <Wrapper isCollapsed={isCollapsed} id="fridgeWrapper">
           <InputWrapper>
             <TitleWrapper>Type in your fridge contents.</TitleWrapper>
             <Input
@@ -144,7 +133,7 @@ const Fridge = () => {
         {searching ? (
           <LoadingFridge />
         ) : (
-          <RecipeDisplay foundRecipes={foundRecipes} />
+          <RecipeDisplay foundRecipes={recipesArray ? recipesArray : []} />
         )}
       </div>
     </>
@@ -234,8 +223,9 @@ const Wrapper = styled.div`
   justify-content: stretch;
   align-items: center;
   border-bottom: 1px solid black;
-  overflow: auto;
-  height: 0vh;
+  overflow: ${({ isCollapsed }) => (isCollapsed ? "hidden" : "auto")};
+  overflow-y: hidden;
+  height: ${({ isCollapsed }) => (isCollapsed ? "3vh" : "95vh")};
   transition: 0.3s ease-in-out;
   background: white;
 `;

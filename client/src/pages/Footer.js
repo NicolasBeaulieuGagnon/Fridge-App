@@ -10,7 +10,6 @@ import { AiOutlineHome, AiOutlinePlusCircle } from "react-icons/ai";
 import { UserContext } from "../components/contexts/UserContext";
 
 const Footer = ({ openNav, setOpenNav }) => {
-  // const [openNav, setOpenNav] = useState(true);
   const history = useHistory();
   const { user } = useContext(UserContext);
 
@@ -62,11 +61,11 @@ const Wrapper = styled.div`
   box-shadow: 0 0 20px 1px rgb(0, 0, 0, 0.3);
   bottom: ${({ close }) => (close ? "10px" : "0px")};
   background: var(--app-bg-color-theme);
-  width: ${({ close }) => (close ? "52px" : "100%")};
+  width: ${({ close }) => (close ? "50px" : "100%")};
   right: ${({ close }) => (close ? "10px" : "0")};
   border-radius: ${({ close }) => close && "150px"};
-  min-height: 40px;
   z-index: 10;
+  height: 50px;
   display: flex;
   flex-direction: row;
   align-items: center;

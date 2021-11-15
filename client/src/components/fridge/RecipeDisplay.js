@@ -32,7 +32,16 @@ const Wrapper = styled.div`
   opacity: ${({ showRecipe }) => (showRecipe ? "1" : "0")};
 `;
 
-const RecipeWrapper = styled.div``;
+const RecipeWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  @media screen and (min-width: 500px) {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+`;
 
 const TitleWrapper = styled.div`
   background: var(--app-bg-color-theme);

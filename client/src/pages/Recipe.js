@@ -5,6 +5,7 @@ import { useParams } from "react-router-dom";
 import { IngredientButton } from "../components/recipe/IngredientButton";
 import MainStyledButton from "../buttons/MainStyledButton";
 import { UserContext } from "../components/contexts/UserContext";
+import { CircularProgress } from "@material-ui/core";
 
 const Recipes = () => {
   const [fullRecipe, setFullRecipe] = useState(null);
@@ -19,11 +20,12 @@ const Recipes = () => {
   const { user, setUpdateUser, updateUser } = useContext(UserContext);
 
   useEffect(() => {
-    if (user?.recipes?.some((recipe) => recipe._id === recipeId)) {
+    if (
+      user?.recipes?.some((recipe) => Number(recipe._id) === Number(recipeId))
+    ) {
       setOwnsThisRecipe(true);
     }
   }, [user]);
-
   useEffect(() => {
     if (fullRecipe) {
       const description = document.getElementById("recipeDescription");
@@ -69,7 +71,7 @@ const Recipes = () => {
 
   return (
     <ResultWrapper>
-      {fullRecipe && (
+      {fullRecipe ? (
         <Wrapper
           style={{
             backgroundImage: `url(${fullRecipe.image})`,
@@ -153,6 +155,14 @@ const Recipes = () => {
             </StepsWrapper>
           </RecipeWrapper>
         </Wrapper>
+      ) : (
+        <LoadingWrapper>
+          Loading ...
+          <CircularProgress
+            style={{ marginTop: "50px", marginRight: "15px" }}
+            size={50}
+          />
+        </LoadingWrapper>
       )}
     </ResultWrapper>
   );
@@ -165,6 +175,16 @@ const ResultWrapper = styled.div`
 `;
 
 const NoInstructionsDiv = styled.div``;
+
+const LoadingWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  font-weight: bold;
+  font-size: 20px;
+`;
 
 const Title = styled.h1`
   text-shadow: 2px -2px 5px white;

@@ -36,8 +36,10 @@ export const changeLogs = [
     changes: [
       "hid away the change logs in the little bug in the top left of the screen!",
       "changed the bottom navbar display",
+      "recently added recipe is now showing up on the homepage!",
+      "now when you leave the page and come back to the fridge your search will not be reset.",
     ],
-    type: "Features",
+    type: "Features & Bugs",
     message:
       "Two small features added for this one. Changed the way the bottom menu is so now you should be able to have a bit more screen! Also hid these change logs in a little bug in the top left if you want to see.",
   },

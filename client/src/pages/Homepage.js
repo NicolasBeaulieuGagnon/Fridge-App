@@ -5,7 +5,7 @@ import { AiFillBug } from "react-icons/ai";
 import Tippy from "@tippyjs/react";
 import "tippy.js/dist/tippy.css";
 import SlideFromLeft from "../components/animations/SlideFromLeft";
-
+import NewestSaved from "../components/homepage/NewestSaved";
 import { UserContext } from "../components/contexts/UserContext";
 import { changeLogs } from "../changeLogs";
 import Changes from "../components/Changes";
@@ -14,8 +14,7 @@ import NotStyledButton from "../buttons/NoStyledButton";
 
 const Homepage = () => {
   const [showLogs, setShowLogs] = useState(false);
-  const { user } = useContext(UserContext);
-
+  const { user, updateUser, setUpdateUser } = useContext(UserContext);
   const history = useHistory();
   return (
     <>
@@ -28,6 +27,11 @@ const Homepage = () => {
                 <AiFillBug />
               </BugButton>
             </Tippy>
+            <NewestSaved
+              updateUser={updateUser}
+              setUpdateUser={setUpdateUser}
+              user={user}
+            />
             <SlideFromLeft state={showLogs}>
               <ChangeLogs>
                 <LogTitle>Change logs!</LogTitle>

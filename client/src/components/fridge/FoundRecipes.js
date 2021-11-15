@@ -49,13 +49,24 @@ const Info = styled.div`
   font-weight: normal;
   padding-left: 20px;
   font-style: italic;
+  &:hover {
+    overflow-x: auto;
+  }
 `;
 const InfoTitle = styled.div``;
 const RecipeWrapper = styled.div`
   font-size: 20px;
   display: flex;
   flex-direction: column;
-  padding: 35px;
+  width: 260px;
+  height: 450px;
+  transition: 600ms ease;
+  border-radius: 5px;
+  align-items: center;
+  padding: 15px;
+  margin: 20px;
+  box-shadow: 0 0 5px 1px rgb(0, 0, 0, 0.2);
+  background: rgb(235, 235, 235);
 `;
 const Title = styled.div`
   font-size: 25px;
